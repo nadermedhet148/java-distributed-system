@@ -1,0 +1,19 @@
+version: "3"
+services:
+  wait:
+    image: dokku/wait
+  rabbitmq:
+    image: rabbitmq:3.8.9-alpine
+    container_name: rabbitmq
+    environment:
+      - RABBITMQ_DEFAULT_USER=root
+      - RABBITMQ_DEFAULT_PASS=root
+      - RABBITMQ_ERLANG_COOKIE=fzcookie
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+  naming-service : 
+      image: naming-service
+      container_name: naming-service
+      ports:
+        - "8761:8000"

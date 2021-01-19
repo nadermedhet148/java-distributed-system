@@ -16,12 +16,12 @@ services:
       image: naming-service
       container_name: naming-service
       ports:
-        - "8761:8000"
+        - "8761:8761"
   config-service :
       image: config-service
       container_name: config-service
       ports:
-        - "8888:8000"
+        - "8111:8111"
   user-service : 
     image: user-service
     container_name: user-service

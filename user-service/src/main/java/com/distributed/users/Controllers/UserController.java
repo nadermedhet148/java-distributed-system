@@ -1,24 +1,48 @@
 package com.distributed.users.Controllers;
 
-import com.distributed.users.Configuration;
+import com.distributed.users.Controllers.DTO.CreateUserDto;
+import com.distributed.users.Entites.User;
+import com.distributed.users.repostories.IUserRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 
-@RestController
+import javax.inject.Inject;
+import java.util.Optional;
+
+@RestController()
 @RefreshScope
+@RequestMapping(value = "/users")
+@AllArgsConstructor(onConstructor = @__(
+        @Inject))
 public class UserController {
     @Autowired
-    private Configuration configuration;
+    private IUserRepository userRepository;
 
-    @Value("${user.name}")
-    private String name;
 
-    @GetMapping("/")
-    public String retrieveLimitsFromConfigurations() {
-        return  this.name;
 
+    @PostMapping(value = "")
+    public User createUser(@RequestBody CreateUserDto body) {
+        Optional<User> userCreatedBefore = this.userRepository.findOneByName(body.getName());
+
+        if(userCreatedBefore.isPresent()) {
+            return  null;
+        }
+        User user = new User();
+        user.setName(body.getName());
+        this.userRepository.save(user);
+        return user;
     }
+
+    @GetMapping(value = "/{name}")
+    public User getUser(@PathVariable String name) {
+        Optional<User> user = this.userRepository.findOneByName(name);
+
+        if(!user.isPresent()) {
+            return  null;
+        }
+        return user.get();
+    }
+
 }

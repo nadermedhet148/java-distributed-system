@@ -2,14 +2,14 @@
 ------------------------
 This repository is an example of distributed system using spring cloud and spring boot 
 
-## Service :
+## Services :
 --------------------
 - Config  service (spring cloud config) 
 - Gateway service (spring netflix zuul api gateway)
 - Naming  service (spring netflix eureka naming)
 - Users   service 
 
-## Run all service : 
+## Run all services : 
 ------------------------
 ```
 

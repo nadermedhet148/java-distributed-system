@@ -7,7 +7,7 @@ This repository is an example of distributed system using spring cloud and sprin
 - Config  service (spring cloud config) 
 - Gateway service (spring netflix zuul api gateway)
 - Naming  service (spring netflix eureka naming)
-- Users   service 
+- Users   service (JWT and Spring security )
 
 ## Run all services : 
 ------------------------

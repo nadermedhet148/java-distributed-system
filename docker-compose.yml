@@ -2,30 +2,29 @@ version: "3"
 services:
   wait:
     image: dokku/wait
-  # rabbitmq:
-  #   image: rabbitmq:3.8.9-alpine
-  #   container_name: rabbitmq
-  #   environment:
-  #     - RABBITMQ_DEFAULT_USER=root
-  #     - RABBITMQ_DEFAULT_PASS=root
-  #     - RABBITMQ_ERLANG_COOKIE=fzcookie
-  #   ports:
-  #     - "5672:5672"
-  #     - "15672:15672"
+  rabbitmq:
+    image: rabbitmq:3.8.9-alpine
+    container_name: rabbitmq
+    environment:
+      - RABBITMQ_DEFAULT_USER=root
+      - RABBITMQ_DEFAULT_PASS=root
+      - RABBITMQ_ERLANG_COOKIE=fzcookie
+    ports:
+      - "5672:5672"
+      - "15672:15672"
   naming-service : 
-      image: naming-service
-      container_name: naming-service
+      build : ./naming-service
       ports:
         - "8761:8761"
-  # config-service :
-  #     image: config-service
-  #     container_name: config-service
-  #     ports:
-  #       - "8111:8111"
-  user-service : 
-    image: user-service
-    container_name: user-service
-    environment:
-      WAIT_HOSTS: naming-service:8761
-    ports:
-      - "7000:8000"
+  config-service :
+      image: config-service
+      container_name: config-service
+      ports:
+        - "8111:8111"
+  # user-service : 
+  #   image: user-service
+  #   container_name: user-service
+  #   environment:
+  #     WAIT_HOSTS: naming-service:8761
+  #   ports:
+  #     - "7000:8000"

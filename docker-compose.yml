@@ -2,6 +2,8 @@ version: "3"
 services:
   wait:
     image: dokku/wait
+    environment:
+      timeout: 300s
   rabbitmq:
     image: rabbitmq:3.8.9-alpine
     container_name: rabbitmq
@@ -16,15 +18,15 @@ services:
       build : ./naming-service
       ports:
         - "8761:8761"
-  config-service :
-      image: config-service
-      container_name: config-service
-      ports:
-        - "8111:8111"
-  # user-service : 
-  #   image: user-service
-  #   container_name: user-service
-  #   environment:
-  #     WAIT_HOSTS: naming-service:8761
+  # gateway :
+  #   build : ./gateway
   #   ports:
-  #     - "7000:8000"
+  #     - "8765:8765"
+  #   environment:
+  #     WAIT_HOSTS: naming-service:8761,rabbitmq:5672
+  # user-service : 
+  #   build : ./user-service
+  #   environment:
+  #     WAIT_HOSTS: gateway:8765
+  #   ports:
+  #     - "8080:8080"

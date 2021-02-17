@@ -14,11 +14,20 @@ This repository is an example of distributed system using spring cloud and sprin
 ## Run all services : 
 ------------------------
 ```
-
-$ cd config-service/
-$ ./mvnw spring-boot:run
+cd config-service
+./mvnw spring-boot:run
 cd ..
-bash run.bash 
+cd user-service
+./mvnw spring-boot:run
+cd ..
+cd tweets-service
+./mvnw spring-boot:run
+cd ..
+cd gatewayservice
+./mvnw spring-boot:run
+cd ..
+docker-compose  down
+docker-compose  up
 
 ```
 
